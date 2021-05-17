@@ -1,32 +1,35 @@
-@ck/blinter
+# Gardener
 ===========
 
 A simple linter for Git branches
 
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
-[![Version](https://img.shields.io/npm/v/@ck/blinter.svg)](https://npmjs.org/package/@ck/blinter)
-[![Downloads/week](https://img.shields.io/npm/dw/@ck/blinter.svg)](https://npmjs.org/package/@ck/blinter)
-[![License](https://img.shields.io/npm/l/@ck/blinter.svg)](https://github.com/course-key/blinter/blob/master/package.json)
+[![License](https://img.shields.io/npm/l/@ck/blinter.svg)](https://github.com/course-key/gardener/blob/master/package.json)
 
 <!-- toc -->
 * [Usage](#usage)
-* [Commands](#commands)
+* [Options](#options)
 <!-- tocstop -->
-# Usage
+## Usage
 <!-- usage -->
 ```sh-session
-$ npm install -g @ck/blinter
-$ blinter COMMAND
-running command...
-$ blinter (-v|--version|version)
-@ck/blinter/0.0.0 darwin-x64 node-v12.18.1
-$ blinter --help [COMMAND]
-USAGE
-  $ blinter COMMAND
-...
+$ npm install -g git+https://github.com/course-key/gardener
+$ gardener [options] [branch_name]
 ```
+If no branch name is provided, `gardener` will lint the name of the Git branch currently checked out.
 <!-- usagestop -->
-# Commands
-<!-- commands -->
+## Options
+<!-- options -->
+### `-e, --exclude`
+A list of branch names to exclude from linting. Branches must match the string on the exclude list exactly.
 
-<!-- commandsstop -->
+### `-p, --preset`
+This flag will enable you to use one of the predefined branch patterns. Available values are `git-flow` and `git-flow-kebab`.
+
+### `-r, --pattern`
+A custom regular expression used to validate branch names. This flag will be ignored if `preset` is present.
+
+### `-h, --help`
+Display usage on the CLI.
+
+<!-- optionsstop -->
