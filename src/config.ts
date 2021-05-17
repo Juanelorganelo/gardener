@@ -12,7 +12,7 @@ const files = [
   '.gardenerrc',
 ]
 
-export type Preset = 'git-flow'
+export type Preset = 'git-flow' | 'git-flow-kebab'
 
 export interface Config {
   pattern?: string;
