@@ -1,37 +1,24 @@
 {
-  "oneOf": [
-    {
-      "type": "object",
-      "properties": {
-        "pattern": {
-          "type": "string",
-          "format": "regexp",
-          "description": "The pattern used to validate branch names"
-        },
-        "exclude": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
+  "type": "object",
+  "properties": {
+    "preset": {
+      "oneOf": [
+        { "type": "string" },
+        {
+          "type": "object",
+          "properties": {
+            "name": { "type": "string" },
+            "options": { "type": "object" }
+          },
+          "required": ["name", "options"]
         }
-      },
-      "required": ["pattern"]
+      ]
     },
-    {
-      "type": "object",
-      "properties": {
-        "preset": {
-          "type": "string",
-          "enum": "git-flow",
-          "description": "Use on of the pre-configured patterns to validate branch names"
-        },
-        "exclude": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
+    "exclude": {
+      "type": "array",
+      "items": {
+        "type": "string"
       }
     }
-  ]
+  }
 }
