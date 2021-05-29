@@ -1,10 +1,17 @@
 import {Command, flags} from '@oclif/command'
 
 import {lint} from './linter'
-import {load, Preset} from './config'
+import {Config, load} from './config'
 import {getCurrentBranch} from './git'
 
-export class Gardener extends Command {
+export interface GardenerFlags {
+  help: void;
+  version: void;
+  preset?: string;
+  exclude?: string[];
+}
+
+export default class Gardener extends Command {
   static description = 'A simple linter for Git branches'
 
   static flags = {
@@ -15,7 +22,6 @@ export class Gardener extends Command {
       multiple: true,
     }),
     preset: flags.string({char: 'p'}),
-    pattern: flags.string({char: 'r'}),
   }
 
   static args = [
@@ -27,17 +33,11 @@ export class Gardener extends Command {
   async run() {
     const {args, flags} = this.parse(Gardener)
 
-    const config = await load()
+    const config = await load(flags)
     const currentBranch = args.branch ?? await getCurrentBranch()
 
-    if (flags.preset) {
-      config.preset = flags.preset as Preset
-    }
-    if (flags.pattern) {
-      config.pattern = flags.pattern
-    }
-    if (flags.exclude) {
-      config.exclude = flags.exclude
+    if (!config.preset) {
+      config.preset = 'git-flow'
     }
 
     if (config.exclude && config.exclude.some(name => currentBranch === name)) {
@@ -45,7 +45,7 @@ export class Gardener extends Command {
       return
     }
 
-    const errorMessage = lint(currentBranch, config)
+    const errorMessage = await lint(currentBranch, config as Config)
 
     if (errorMessage) {
       this.error(errorMessage)
