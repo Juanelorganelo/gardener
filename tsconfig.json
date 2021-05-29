@@ -6,6 +6,9 @@
     "outDir": "lib",
     "rootDir": "src",
     "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
     "target": "es2019",
     "esModuleInterop": true,
     "resolveJsonModule": true
