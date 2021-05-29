@@ -4,6 +4,10 @@
     "oclif-typescript"
   ],
   "rules": {
+    "new-cap": "off",
+    "valid-jsdoc": "off",
+    // Conflicts with TypeScript
+    "no-useless-constructor": "off",
     "unicorn/no-abusive-eslint-disable": "off"
   }
 }
