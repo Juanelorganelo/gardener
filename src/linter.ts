@@ -1,24 +1,41 @@
+/* eslint-disable @typescript-eslint/no-use-before-define */
+import {Presets} from './presets/preset'
+import {GitFlowPreset} from './presets/git-flow'
+import {PatternPreset} from './presets/pattern'
+
+import type {Preset} from './presets/preset'
+
 import type {Config} from './config'
 
-const presets: Record<string, RegExp> = {
-  'git-flow': /^(release|hotfix|bugfix|feature)\/.+$/,
-  'git-flow-kebab': /^(release|hotfix|bugfix|feature)\/[a-z0-9](-[a-z0-9])*$/,
+export async function lint(branchName: string, config: Config): Promise<string | undefined> {
+  const preset = createPreset(config)
+  const validation = await preset.validate(branchName)
+
+  if (validation) {
+    return validation
+  }
 }
 
-function compilePattern(sourceOrPreset: string): RegExp {
-  if (sourceOrPreset in presets) {
-    return presets[sourceOrPreset]
+function createPreset(config: Config): Preset {
+  let name: string
+  let options: Record<string, unknown> | undefined
+
+  if (typeof config.preset === 'string') {
+    name = config.preset
+  } else {
+    name = config.preset.name
+    options = config.preset.options
   }
 
-  return new RegExp(String.raw`${sourceOrPreset}`)
-}
+  // Clean up the name.
+  name = name.trim()
 
-export function lint(branchName: string, config: Config): string {
-  const pattern = compilePattern(config.preset ?? config.pattern!)
-
-  if (!pattern.test(branchName)) {
-    return config.preset ? `Branch name ${branchName} does not match preset ${config.preset}` : `Branch name ${branchName} does not match pattern ${config.pattern}`
+  switch (name) {
+  case Presets.PATTERN:
+    return new PatternPreset(options)
+  case Presets.GIT_FLOW:
+    return new GitFlowPreset(options)
+  default:
+    throw new Error(`Invalid preset name ${name}`)
   }
-
-  return ''
 }
