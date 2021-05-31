@@ -3,9 +3,8 @@ import { Presets } from "./presets/preset";
 import { GitFlowPreset } from "./presets/git-flow";
 import { PatternPreset } from "./presets/pattern";
 
-import type { Preset } from "./presets/preset";
-
 import type { Config } from "./config";
+import type { Preset } from "./presets/preset";
 
 export async function lint(branchName: string, config: Config): Promise<string | undefined> {
   const preset = createPreset(config);
@@ -32,7 +31,7 @@ function createPreset(config: Config): Preset {
 
   switch (name) {
     case Presets.PATTERN:
-      return new PatternPreset(options);
+      return new PatternPreset(options as any);
     case Presets.GIT_FLOW:
       return new GitFlowPreset(options);
     default:

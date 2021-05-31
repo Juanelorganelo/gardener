@@ -22,7 +22,6 @@
     "@oclif/config": "^1",
     "@oclif/plugin-help": "^3",
     "ajv": "^8.4.0",
-    "minimatch": "^3.0.4",
     "tslib": "^2.2.0",
     "yaml": "^1.10.2"
   },
