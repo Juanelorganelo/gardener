@@ -6,7 +6,7 @@
   "rules": {
     "new-cap": "off",
     "valid-jsdoc": "off",
-    // Conflicts with TypeScript
+    // Conflicts with TypeScript shortcuts
     "no-useless-constructor": "off",
     "unicorn/no-abusive-eslint-disable": "off"
   }
