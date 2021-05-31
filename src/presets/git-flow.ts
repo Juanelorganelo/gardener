@@ -36,6 +36,10 @@ export interface GitFlowOptions {
      * If both suffix and prefix are present issue number maybe at any of those locations.
      */
     prefix?: boolean;
+    /**
+     * If false, multiple substrings matching the issue number pattern are disallowed.
+     */
+    disallowMultiple?: boolean;
   };
   /**
    * A list of additional branch types.
@@ -96,7 +100,7 @@ export class GitFlowPreset implements Preset {
         return null;
       }
 
-      if (matches.length > 0) {
+      if (this.options.issueNumber.disallowMultiple && matches.length > 1) {
         return "Invalid branch description. Multiple issue numbers detected";
       }
 
