@@ -3,10 +3,10 @@
  * @author Juan Manuel Garcia Junco Moreno
  * @copyright CourseKey Inc. All rights reserved
  */
-import {Minimatch} from 'minimatch'
+import { Minimatch } from "minimatch";
 
-import type {Preset} from './preset'
-import type {Nullable} from '../types'
+import type { Preset } from "./preset";
+import type { Nullable } from "../types";
 
 /**
  * Options for the pattern preset.
@@ -32,10 +32,10 @@ export class PatternPreset implements Preset {
    */
   constructor(private options?: PatternPresetOptions) {
     if (options?.pattern && options?.glob) {
-      throw new Error('Only one of the `glob` or `pattern` options must be provided')
+      throw new Error("Only one of the `glob` or `pattern` options must be provided");
     }
     if (!options?.pattern && !options?.glob) {
-      throw new Error('You must provide the `pattern` option or `glob` to the pattern preset')
+      throw new Error("You must provide the `pattern` option or `glob` to the pattern preset");
     }
   }
 
@@ -45,19 +45,21 @@ export class PatternPreset implements Preset {
    * @return An error message if branch name did not passed validation, otherwise null.
    */
   public validate(branch: string): Nullable<string> {
-    const isGlob = typeof this.options?.glob !== 'undefined'
+    const isGlob = typeof this.options?.glob !== "undefined";
 
-    let isValid: boolean
+    let isValid: boolean;
     if (isGlob) {
-      const p = new Minimatch(this.options!.glob!)
-      isValid = p.match(branch)
+      const p = new Minimatch(this.options!.glob!);
+      isValid = p.match(branch);
     } else {
-      const p = new RegExp(this.options!.pattern!)
-      isValid = p.test(branch)
+      const p = new RegExp(this.options!.pattern!);
+      isValid = p.test(branch);
     }
 
-    return isValid ?
-      null :
-      `Invalid branch name ${branch}. Branch names must match ${isGlob ? 'glob' : 'regular expression'} ${isGlob ? this.options!.glob : this.options!.pattern}`
+    return isValid
+      ? null
+      : `Invalid branch name ${branch}. Branch names must match ${
+          isGlob ? "glob" : "regular expression"
+        } ${isGlob ? this.options!.glob : this.options!.pattern}`;
   }
 }

@@ -3,10 +3,10 @@
  * @author Juan Manuel Garcia Junco Moreno
  * @copyright CourseKey Inc. All rights reserved
  */
-import {Preset, Presets} from './preset'
-import type {Nullable} from '../types'
+import { Preset, Presets } from "./preset";
+import type { Nullable } from "../types";
 
-const GIT_FLOW_BRANCH = /^(?<type>[\w-]+)\/(?<descriptor>[\w\W\-_.[\]()]+)$/
+const GIT_FLOW_BRANCH = /^(?<type>[\w-]+)\/(?<descriptor>[\w\W\-_.[\]()]+)$/;
 
 /**
  * Options for the git-flow preset.
@@ -43,8 +43,8 @@ export interface GitFlowOptions {
   additionalBranchTypes?: string[];
 }
 
-const BRANCH_TYPES = ['feature', 'release', 'bugfix', 'hotfix']
-const SPECIAL_BRANCHES = ['master', 'main', 'develop']
+const BRANCH_TYPES = ["feature", "release", "bugfix", "hotfix"];
+const SPECIAL_BRANCHES = ["master", "main", "develop"];
 
 /**
  * The GitFlow preset.
@@ -52,7 +52,7 @@ const SPECIAL_BRANCHES = ['master', 'main', 'develop']
  * For more information on GitFlow checkout https://datasift.github.io/gitflow/IntroducingGitFlow.html.
  */
 export class GitFlowPreset implements Preset {
-  public static readonly id = Presets.GIT_FLOW
+  public static readonly id = Presets.GIT_FLOW;
 
   /**
    * Create a GitFlowPreset instance
@@ -67,49 +67,51 @@ export class GitFlowPreset implements Preset {
    */
   public validate(branch: string): Nullable<string> {
     if (SPECIAL_BRANCHES.includes(branch)) {
-      return null
+      return null;
     }
 
-    const matches = GIT_FLOW_BRANCH.exec(branch)
+    const matches = GIT_FLOW_BRANCH.exec(branch);
 
     if (!matches) {
-      return 'Invalid branch name. GitFlow branches must match the following pattern <type>/<description>'
+      return "Invalid branch name. GitFlow branches must match the following pattern <type>/<description>";
     }
 
-    const groups = matches.groups as {type: string; descriptor: string}
-    const branchTypes = this.options?.additionalBranchTypes ? BRANCH_TYPES.concat(this.options.additionalBranchTypes) : BRANCH_TYPES
+    const groups = matches.groups as { type: string; descriptor: string };
+    const branchTypes = this.options?.additionalBranchTypes
+      ? BRANCH_TYPES.concat(this.options.additionalBranchTypes)
+      : BRANCH_TYPES;
 
     if (!branchTypes.includes(groups.type)) {
-      return `Invalid GitFlow branch type ${groups.type}`
+      return `Invalid GitFlow branch type ${groups.type}`;
     }
 
     if (this.options?.issueNumber) {
-      const pattern = new RegExp(this.options.issueNumber.pattern, 'g')
-      const matches = pattern.exec(groups.descriptor)
+      const pattern = new RegExp(this.options.issueNumber.pattern, "g");
+      const matches = pattern.exec(groups.descriptor);
 
       if (!matches) {
         if (!this.options.issueNumber.optional) {
-          return 'Invalid branch description. Missing issue number'
+          return "Invalid branch description. Missing issue number";
         }
-        return null
+        return null;
       }
 
       if (matches.length > 0) {
-        return 'Invalid branch description. Multiple issue numbers detected'
+        return "Invalid branch description. Multiple issue numbers detected";
       }
 
       if (this.options.issueNumber.suffix) {
-        const end = matches.index + matches[0].length
+        const end = matches.index + matches[0].length;
 
         if (end !== groups.descriptor.length) {
-          return  'Invalid issue number. Must be a suffix'
+          return "Invalid issue number. Must be a suffix";
         }
       }
       if (this.options.issueNumber.prefix && matches.index !== 0) {
-        return 'Invalid issue number. Must be a prefix'
+        return "Invalid issue number. Must be a prefix";
       }
     }
 
-    return null
+    return null;
   }
 }

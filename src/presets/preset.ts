@@ -4,7 +4,7 @@
  * @author Juan Manuel Garcia Junco Moreno
  * @copyright Juan Manuel Garcia Junco Moreno. All rights reserved
  */
-import type {Nullable} from '../types'
+import type { Nullable } from "../types";
 
 /**
  * The Preset class.
@@ -28,11 +28,11 @@ export enum Presets {
   /**
    * The ID for the PatternPreset class.
    */
-  PATTERN = 'pattern',
+  PATTERN = "pattern",
   /**
    * The ID for the GitFlowPreset class.
    */
-  GIT_FLOW = 'git-flow'
+  GIT_FLOW = "git-flow",
 }
 
 /**
@@ -42,5 +42,5 @@ export interface PresetConstructor {
   /**
    * The constructor call signature.
    */
-  new(options?: Object): Preset;
+  new (options?: Object): Preset;
 }
