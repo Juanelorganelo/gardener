@@ -12,8 +12,6 @@
     "lint": "eslint '{src,test}/**/*.ts'",
     "lint:fix": "npm run lint -- --fix",
     "test": "nyc --extension .ts mocha \"src/**/*.test.ts\"",
-    "test:e2e": "nyc --extension .ts mocha \"test/**/*.test.ts\"",
-    "test:all": "nyc --extension .ts mocha \"{test,src}/**/*.test.ts\"",
     "version": "oclif-dev readme && git add README.md"
   },
   "bugs": "https://github.com/course-key/blinter/issues",
