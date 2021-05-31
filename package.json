@@ -26,8 +26,11 @@
     "eslint": "^5.13",
     "eslint-config-oclif": "^3.1",
     "eslint-config-oclif-typescript": "^0.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
     "mocha": "^8.4.0",
     "nyc": "^15.1.0",
+    "prettier": "^2.3.0",
     "ts-node": "^10.0.0",
     "typescript": "^4.3.2"
   },
@@ -51,6 +54,8 @@
   "scripts": {
     "posttest": "eslint . --ext .ts --config .eslintrc",
     "prepack": "rm -rf lib && tsc -b && oclif-dev readme",
+    "lint": "eslint {src,test}/**/*.ts",
+    "lint:fix": "npm run lint -- --fix",
     "test": "nyc --extension .ts mocha \"src/**/*.test.ts\"",
     "test:e2e": "nyc --extension .ts mocha \"test/**/*.test.ts\"",
     "test:all": "nyc --extension .ts mocha \"{test,src}/**/*.test.ts\"",
