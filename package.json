@@ -54,7 +54,7 @@
   "scripts": {
     "posttest": "eslint . --ext .ts --config .eslintrc",
     "prepack": "rm -rf lib && tsc -b && oclif-dev readme",
-    "lint": "eslint {src,test}/**/*.ts",
+    "lint": "eslint '{src,test}/**/*.ts'",
     "lint:fix": "npm run lint -- --fix",
     "test": "nyc --extension .ts mocha \"src/**/*.test.ts\"",
     "test:e2e": "nyc --extension .ts mocha \"test/**/*.test.ts\"",
