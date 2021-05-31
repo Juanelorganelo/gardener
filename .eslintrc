@@ -8,7 +8,9 @@
     "prettier"
   ],
   "rules": {
+    "eqeqeq": ["error", "always", {"null": "ignore"}],
     "new-cap": "off",
+    "no-eq-null": "off",
     "valid-jsdoc": "off",
     // Conflicts with TypeScript shortcuts
     "no-useless-constructor": "off",
