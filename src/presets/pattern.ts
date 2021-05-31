@@ -34,8 +34,10 @@ export class PatternPreset implements Preset {
     if (options?.pattern && options?.glob) {
       throw new Error("Only one of the `glob` or `pattern` options must be provided");
     }
-    if (!options?.pattern && !options?.glob) {
-      throw new Error("You must provide the `pattern` option or `glob` to the pattern preset");
+    if (options?.pattern && options?.glob) {
+      throw new Error(
+        "You must provide the `pattern` option or `glob` to the pattern preset but not both",
+      );
     }
   }
 
