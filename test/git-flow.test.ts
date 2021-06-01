@@ -58,4 +58,29 @@ describe("git-flow", () => {
     .it('doesnt error on "develop" branches', (ctx) => {
       expect(ctx.stderr).to.be.empty;
     });
+
+  test
+    .stdout()
+    .stderr()
+    .do(() => Gardener.run(["tmp/foo"]))
+    .catch((error) => {
+      expect(error.message).to.contain("Invalid GitFlow branch type tmp");
+    })
+    .it("throws on invalid branch types");
+
+  test
+    .stdout()
+    .stderr()
+    .config({
+      preset: {
+        name: "git-flow",
+        options: {
+          additionalBranchTypes: ["tmp"],
+        },
+      },
+    })
+    .do(() => Gardener.run(["tmp/foo"]))
+    .it("should allow additional branch types", (ctx) => {
+      expect(ctx.stderr).to.be.empty;
+    });
 });
