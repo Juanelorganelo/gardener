@@ -13,35 +13,6 @@ const GIT_FLOW_BRANCH = /^(?<type>[\w-]+)\/(?<descriptor>[\w\W\-_.[\]()]+)$/;
  */
 export interface GitFlowOptions {
   /**
-   * Issue number options.
-   * If present, the preset will verify that
-   * an issue number is present at the descriptor part of the branch.
-   */
-  issueNumber?: {
-    /**
-     * Issue number pattern.
-     */
-    pattern: string;
-    /**
-     * True if the issue number is not required.
-     */
-    optional?: boolean;
-    /**
-     * True if the issue number appears as a suffix to the description.
-     * If both suffix and prefix are present issue number maybe at any of those locations.
-     */
-    suffix?: boolean;
-    /**
-     * True if the issue number appears as a prefix to the description.
-     * If both suffix and prefix are present issue number maybe at any of those locations.
-     */
-    prefix?: boolean;
-    /**
-     * If false, multiple substrings matching the issue number pattern are disallowed.
-     */
-    disallowMultiple?: boolean;
-  };
-  /**
    * A list of additional branch types.
    */
   additionalBranchTypes?: string[];
@@ -87,33 +58,6 @@ export class GitFlowPreset implements Preset {
 
     if (!branchTypes.includes(groups.type)) {
       return `Invalid GitFlow branch type ${groups.type}`;
-    }
-
-    if (this.options?.issueNumber) {
-      const pattern = new RegExp(this.options.issueNumber.pattern, "g");
-      const matches = pattern.exec(groups.descriptor);
-
-      if (!matches) {
-        if (!this.options.issueNumber.optional) {
-          return "Invalid branch description. Missing issue number";
-        }
-        return null;
-      }
-
-      if (this.options.issueNumber.disallowMultiple && matches.length > 1) {
-        return "Invalid branch description. Multiple issue numbers detected";
-      }
-
-      if (this.options.issueNumber.suffix) {
-        const end = matches.index + matches[0].length;
-
-        if (end !== groups.descriptor.length) {
-          return "Invalid issue number. Must be a suffix";
-        }
-      }
-      if (this.options.issueNumber.prefix && matches.index !== 0) {
-        return "Invalid issue number. Must be a prefix";
-      }
     }
 
     return null;

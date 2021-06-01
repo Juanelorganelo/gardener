@@ -1,5 +1,5 @@
 {
-  "name": "@ck/gardener",
+  "name": "gardener",
   "description": "A simple linter for Git branches",
   "version": "0.0.0",
   "author": "Juan Manuel @Juanelorganelo",
@@ -14,7 +14,7 @@
     "test": "nyc --extension .ts mocha \"src/**/*.test.ts\"",
     "version": "oclif-dev readme && git add README.md"
   },
-  "bugs": "https://github.com/course-key/blinter/issues",
+  "bugs": "https://github.com/course-key/gardener/issues",
   "dependencies": {
     "@oclif/command": "^1",
     "@oclif/config": "^1",
@@ -48,14 +48,14 @@
     "/bin",
     "/lib"
   ],
-  "homepage": "https://github.com/course-key/gardener",
+  "homepage": "https://github.com/Juanelorganelo/gardener",
   "keywords": [
     "oclif"
   ],
   "license": "MIT",
   "main": "lib/index.js",
   "oclif": {
-    "bin": "blinter"
+    "bin": "gardener"
   },
-  "repository": "course-key/gardener"
+  "repository": "Juanelorganelo/gardener"
 }
