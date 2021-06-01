@@ -1,19 +1,22 @@
 {
+  // Include everything in source
+  "include": [
+    "src/**/*.ts"
+  ],
   "compilerOptions": {
-    "declaration": true,
+    // Use tslib for better performance
     "importHelpers": true,
-    "module": "commonjs",
     "outDir": "lib",
-    "rootDir": "src",
+    // Type-checking options and compile-time checks
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
+    // Output ES version
     "target": "es2019",
+    // Module resolution
+    "module": "commonjs",
     "esModuleInterop": true,
     "resolveJsonModule": true
-  },
-  "include": [
-    "src/**/*"
-  ]
+  }
 }
