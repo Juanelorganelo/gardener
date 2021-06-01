@@ -14,6 +14,8 @@
     "valid-jsdoc": "off",
     // Conflicts with TypeScript shortcuts
     "no-useless-constructor": "off",
-    "unicorn/no-abusive-eslint-disable": "off"
+    "unicorn/no-abusive-eslint-disable": "off",
+    // TypeScript specific rules
+    "@typescript-eslint/no-use-before-define": "off"
   }
 }
