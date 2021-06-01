@@ -26,7 +26,7 @@
     "prepack": "rm -rf lib && tsc -b && oclif-dev readme",
     "lint": "eslint '{src,test}/**/*.ts'",
     "lint:fix": "npm run lint -- --fix",
-    "test": "nyc --extension .ts mocha \"src/**/*.test.ts\"",
+    "test": "nyc --extension .ts mocha \"test/**/*.test.ts\"",
     "version": "oclif-dev readme && git add README.md"
   },
   "oclif": {
