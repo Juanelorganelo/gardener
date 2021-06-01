@@ -26,9 +26,7 @@ export class PatternPreset implements Preset {
    */
   constructor(private options?: PatternPresetOptions) {
     if (!options?.pattern) {
-      throw new Error(
-        "You must provide the `pattern` option or `glob` to the pattern preset but not both",
-      );
+      throw new Error("You must provide the `pattern` option");
     }
   }
 
