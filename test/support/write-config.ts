@@ -73,8 +73,10 @@ export function writeConfig(
       fs.writeFileSync(f, content);
     },
     finally(ctx: WriteConfigContext) {
-      fs.unlinkSync(ctx.file);
-      ctx.file = "";
+      if (ctx.file) {
+        fs.unlinkSync(ctx.file);
+        ctx.file = "";
+      }
     },
   };
 }
