@@ -90,7 +90,7 @@ function findUpstream(files: string[], cwd = process.cwd(), maxDepth = 7): strin
       }
     }
 
-    currentDir = path.resolve("..", currentDir);
+    currentDir = path.resolve(currentDir, "..");
     depth++;
   }
 
