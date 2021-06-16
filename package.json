@@ -29,6 +29,14 @@
     "test": "nyc --extension .ts mocha \"test/**/*.test.ts\"",
     "version": "oclif-dev readme && git add README.md"
   },
+  "nyc": {
+    "all": true,
+    "exclude": [
+      "*.js",
+      "test/*"
+    ],
+    "check-coverage": true
+  },
   "oclif": {
     "bin": "gardener"
   },
