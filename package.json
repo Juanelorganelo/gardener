@@ -33,7 +33,7 @@
   "nyc": {
     "all": true,
     "exclude": [
-      "*.js",
+      "**/*.js",
       "test/*"
     ],
     "check-coverage": true
