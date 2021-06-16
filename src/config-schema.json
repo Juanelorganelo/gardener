@@ -10,7 +10,8 @@
             "name": { "type": "string" },
             "options": { "type": "object" }
           },
-          "required": ["name", "options"]
+          "required": ["name", "options"],
+          "additionalProperties": false
         }
       ]
     },
@@ -20,5 +21,6 @@
         "type": "string"
       }
     }
-  }
+  },
+  "additionalProperties": false
 }
