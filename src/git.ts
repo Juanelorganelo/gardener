@@ -13,23 +13,24 @@ export async function getCurrentBranch(): Promise<string> {
   throw new Error("Unexpected error while getting branch name");
 }
 
-function git(command: string, flags?: Record<string, unknown>, args?: unknown[]): Promise<string> {
+export function git(
+  command: string,
+  flags?: Record<string, unknown>,
+  positional?: unknown[],
+): Promise<string> {
   const argv: string[] = [];
 
-  if (args) {
-    argv.push(...args.map(String));
-  }
   if (flags) {
     argv.push(...serializeFlags(flags));
+  }
+  if (positional) {
+    argv.push(...positional.map(String));
   }
 
   const child = spawn("git", [command, ...argv]);
 
   return new Promise((resolve, reject) => {
     let result = "";
-    child.on("data", (chunk: Buffer) => {
-      result += chunk.toString();
-    });
     child.on("exit", (code: number) => {
       if (code === 0) {
         resolve(result.trim());
@@ -37,8 +38,9 @@ function git(command: string, flags?: Record<string, unknown>, args?: unknown[])
         reject(new Error(`Command ${command} exited with code ${code}`));
       }
     });
-    child.on("error", (error) => {
-      reject(error);
+    child.on("error", reject);
+    child.stdout.on("data", (chunk: Buffer) => {
+      result += chunk.toString();
     });
   });
 }
@@ -53,12 +55,19 @@ function serializeFlags(flags: Record<string, unknown>): string[] {
   const stack = [];
 
   for (const [key, value] of Object.entries(flags)) {
-    if (key.length === 0) {
+    if (value === false) {
+      continue;
+    }
+
+    if (key.length === 1) {
       stack.push(`-${key}`);
     } else {
       stack.push(`--${kebab(key)}`);
     }
-    stack.push(String(value));
+
+    if (value !== true) {
+      stack.push(String(value));
+    }
   }
 
   return stack;
