@@ -13,6 +13,11 @@ const GIT_FLOW_BRANCH = /^(?<type>[\w-]+)\/(?<descriptor>[\w\W\-_.[\]()]+)$/;
  */
 export interface GitFlowOptions {
   /**
+   * A regular expression that all
+   * branch description must match.
+   */
+  description?: string;
+  /**
    * A list of additional branch types.
    */
   additionalBranchTypes?: string[];
@@ -58,6 +63,14 @@ export class GitFlowPreset implements Preset {
 
     if (!branchTypes.includes(groups.type)) {
       return `Invalid GitFlow branch type ${groups.type}`;
+    }
+
+    if (this.options?.description) {
+      const re = new RegExp(this.options.description);
+
+      if (!re.test(groups.descriptor)) {
+        return `Invalid branch description. Descriptions must match regular expression ${re.source}`;
+      }
     }
 
     return null;

@@ -83,4 +83,23 @@ describe("git-flow", () => {
     .it("should allow additional branch types", (ctx) => {
       expect(ctx.stderr).to.be.empty;
     });
+
+  test
+    .stdout()
+    .stderr()
+    .config({
+      preset: {
+        name: "git-flow",
+        options: {
+          description: "^[A-Za-z]+$",
+        },
+      },
+    })
+    .do(() => Gardener.run(["feature/ck-foo"]))
+    .catch((error) => {
+      expect(error.message).to.contain(
+        "Invalid branch description. Descriptions must match regular expression ^[A-Za-z]+$",
+      );
+    })
+    .it("should enforce patterns in branch descriptions");
 });
