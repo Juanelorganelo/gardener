@@ -41,4 +41,19 @@ describe("pattern", () => {
     .it("passes on branches that match the regular expression", (ctx) => {
       expect(ctx.stderr).to.be.empty;
     });
+
+  test
+    .stdout()
+    .stderr()
+    .config({
+      preset: {
+        name: "pattern",
+        options: {},
+      },
+    })
+    .do(() => Gardener.run(["foo"]))
+    .catch((error) => {
+      expect(error.message).contain("You must provide the `pattern` option");
+    })
+    .it("throws if the pattern option is not present");
 });
