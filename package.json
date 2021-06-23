@@ -1,6 +1,6 @@
 {
   "name": "gardener",
-  "description": "A simple linter for Git branches",
+  "description": "A configurable and extensible linter for Git branch names.",
   "version": "0.0.0",
   "author": "Juan Manuel @Juanelorganelo",
   "main": "lib/index.js",
