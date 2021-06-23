@@ -1,6 +1,16 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
+/**
+ * Copyright (c) Juan Manuel Garcia Junco Moreno.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
 import { spawn } from "child_process";
 
+/**
+ * Get the current branch name.
+ * @return The name of the current branch.
+ */
 export async function getCurrentBranch(): Promise<string> {
   return git("rev-parse", { abbrevRef: true }, ["HEAD"]);
 }

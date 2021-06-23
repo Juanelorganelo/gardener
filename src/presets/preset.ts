@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/ban-types */
 /**
- * The Preset type.
- * @author Juan Manuel Garcia Junco Moreno
- * @copyright Juan Manuel Garcia Junco Moreno. All rights reserved
+ * Copyright (c) Juan Manuel Garcia Junco Moreno.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
 import type { Nullable } from "../types";
 

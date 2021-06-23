@@ -1,7 +1,8 @@
 /**
- * A collection of fancy-test plugins to manipulate git-related fixtures.
- * @author Juan Manuel Garcia Junco Moreno
- * @copyright Juan Manuel Garcia Junco 2021. All rights reserved
+ * Copyright (c) Juan Manuel Garcia Junco Moreno.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
 import fs from "fs";
 import path from "path";

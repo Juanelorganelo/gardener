@@ -1,3 +1,9 @@
+/**
+ * Copyright (c) Juan Manuel Garcia Junco Moreno.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import { Presets } from "./presets/preset";
 import { GitFlowPreset } from "./presets/git-flow";

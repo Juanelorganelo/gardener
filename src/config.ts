@@ -1,9 +1,10 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
 /**
- * Config loading and parsing.
- * @author Juan Manuel Garcia Junco Moreno
- * @copyright Juan Manuel Garcia Junco Moreno. All rights reserved
+ * Copyright (c) Juan Manuel Garcia Junco Moreno.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
+/* eslint-disable @typescript-eslint/no-use-before-define */
 import fs from "fs";
 import AJV from "ajv";
 import path from "path";

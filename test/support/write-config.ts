@@ -1,7 +1,8 @@
 /**
- * A fancy-test plugin to write a Gardener configuration fixture.
- * @author Juan Manuel Garcia Junco Moreno
- * @copyright CourseKey Inc. All rights reserved
+ * Copyright (c) Juan Manuel Garcia Junco Moreno.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
 import fs from "fs";
 import path from "path";
