@@ -1,4 +1,9 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
+/**
+ * Config loading and parsing.
+ * @author Juan Manuel Garcia Junco Moreno
+ * @copyright Juan Manuel Garcia Junco Moreno. All rights reserved
+ */
 import fs from "fs";
 import AJV from "ajv";
 import path from "path";
@@ -7,6 +12,8 @@ import configSchema from "./config-schema.json";
 
 import type { GardenerFlags } from ".";
 
+// List of configuration file names.
+// File names are resolved in order.
 const files = [
   ".gardenerrc.yml",
   ".gardenerrc.yaml",
@@ -16,18 +23,42 @@ const files = [
   ".gardenerrc",
 ];
 
+/**
+ * Configuration for the linting presets.
+ */
 export interface PresetConfig<T = Record<string, unknown>> {
+  /**
+   * The name of the preset to use.
+   */
   name: string;
+  /**
+   * Preset options.
+   */
   options?: T;
 }
 
+/**
+ * Main configuration.
+ */
 export interface Config {
+  /**
+   * The linter preset to use.
+   */
   preset: string | PresetConfig;
+  /**
+   * A list of branches to exclude from linting.
+   */
   exclude?: string[];
 }
 
 const ajv = new AJV();
 
+/**
+ * Load the Gardener configuration.
+ * This will parse configuration the file.
+ * @param flags Flags passed to the gardener command
+ * @return The loaded configuration.
+ */
 export async function load(flags: GardenerFlags): Promise<Partial<Config>> {
   let config: Record<string, unknown>;
 
