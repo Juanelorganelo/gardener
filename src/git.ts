@@ -2,15 +2,7 @@
 import { spawn } from "child_process";
 
 export async function getCurrentBranch(): Promise<string> {
-  const lines = await git("rev-parse", { abbrevRef: "HEAD" });
-
-  for (const line of lines.split("\n")) {
-    if (!isWhitespaceOrEmpty(line)) {
-      return line;
-    }
-  }
-
-  throw new Error("Unexpected error while getting branch name");
+  return git("rev-parse", { abbrevRef: true }, ["HEAD"]);
 }
 
 export function git(
@@ -71,10 +63,4 @@ function serializeFlags(flags: Record<string, unknown>): string[] {
   }
 
   return stack;
-}
-
-const WHITESPACE = /^[\s\r\n]+$/;
-
-function isWhitespaceOrEmpty(string: string): boolean {
-  return string === "" || WHITESPACE.test(string);
 }
