@@ -8,6 +8,6 @@ A configurable and extensible linter for Git branch names.
 This project is still a work-in-progress, there's little to no documentation and it hasn't even been released to NPM. Use it at your own risk.
 
 ## TODO
-- [x] Use multiple presets
-- [x] Make sure GitFlow preset can ensure `main` or `master` and `develop` exist.
-- [x] Pass multiple branch information to presets so mandatory branches can be enforced.
+- [ ] Use multiple presets
+- [ ] Make sure GitFlow preset can ensure `main` or `master` and `develop` exist.
+- [ ] Pass multiple branch information to presets so mandatory branches can be enforced.
