@@ -6,6 +6,8 @@ A simple linter for Git branches
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
 [![License](https://img.shields.io/npm/l/@ck/blinter.svg)](https://github.com/course-key/gardener/blob/master/package.json)
 
+## WIP :warning:
+
 <!-- toc -->
 * [Usage](#usage)
 * [Options](#options)
