@@ -1,0 +1,116 @@
+name: Main
+
+on:
+  branches:
+    - '**'
+  pull_request:
+    - opened
+    - synchronize
+    - reopened
+    - ready_for_review
+
+jobs:
+  install:
+    name: Install
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    strategy:
+      matrix:
+        node: [12.x.x, 14.x.x]
+
+    steps:
+      - uses: styfle/cancel-workflow-action@0.7.0
+        with:
+          access_token: ${{ github.token }}
+
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.sha || github.sha }}
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node }}
+
+      - id: cache
+        uses: actions/cache@v2
+        with:
+          key: ${{ runner.os }}-${{ hashFiles('yarn.lock') }}
+          path: node_modules
+
+      - name: Install
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: yarn install --pure-lockfile
+
+  test:
+    needs: install
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.sha || github.sha }}
+
+      - uses: actions/cache@v2
+        with:
+          key: ${{ runner.os }}-${{ hashFiles('yarn.lock') }}
+          path: node_modules
+
+      - name: Lint
+        run: yarn lint
+
+      - name: Test
+        run: yarn test
+
+  build:
+    needs: install
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.sha || github.sha }}
+
+      - uses: actions/cache@v2
+        with:
+          key: ${{ runner.os }}-${{ hashFiles('yarn.lock') }}
+          path: node_modules
+
+      - name: Build
+        run: yarn build
+
+      - id: pack
+        name: Pack
+        run: |
+          yarn pack
+          bash scripts/tarball-name.sh
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: ${{ steps.pack.outputs.tarball-name }}
+          path: ${{ steps.pack.outputs.tarball-name }}
+
+  publish:
+    needs: [test, build]
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.sha || github.sha }}
+
+      - uses: actions/cache@v2
+        with:
+          key: ${{ runner.os }}-${{ hashFiles('yarn.lock') }}
+          path: node_modules
+
+      - id: artifact
+        name: Artifact Name
+        run: bash scripts/tarball-name.sh
+
+      - uses: actions/download-artifact@v2
+        with:
+          name: ${{ steps.artifact.outputs.tarball-name }}
